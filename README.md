@@ -33,5 +33,3 @@ A screenshot of the application is shown here:
 ## Credits
 
 Tutorials and instruction provided by the University of Texas at Austin Full Stack Web Developement Program and it's affiliated professors and TA's. 
-
-[How to create a Professional README](https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide)
