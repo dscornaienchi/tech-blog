@@ -1,0 +1,8 @@
+<!-- views/partials/post-card.handlebars -->
+<div class="post-card">
+  <h2>{{post.title}}</h2>
+  <p>Author: {{post.user.username}}</p>
+  <p>Date: {{post.createdAt}}</p>
+  <p>{{post.content}}</p>
+  <a href="/post/{{post.id}}">Read more</a>
+</div>

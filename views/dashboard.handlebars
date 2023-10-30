@@ -1,0 +1,15 @@
+<!-- views/dashboard.handlebars -->
+{{#if user}}
+  <h2>Welcome, {{user.username}}!</h2>
+  <h3>Your Posts</h3>
+  <ul>
+    {{#each user.posts}}
+      <li>
+        <a href="/post/{{id}}">{{title}}</a>
+        <button data-id="{{id}}" class="delete-post">Delete</button>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>Please <a href="/login">log in</a> to view your dashboard.</p>
+{{/if}}
