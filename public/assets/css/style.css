@@ -1,0 +1,26 @@
+/* public/assets/css/style.css */
+
+/* Reset some default styles */
+body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Add styles to format post cards */
+  .post-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+  }
+  
+  /* Add styles to format the comment section in the post view */
+  .comment {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+  }
+  
+  /* Customize other styles as needed */
+  
