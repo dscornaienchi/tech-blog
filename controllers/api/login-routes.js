@@ -1,7 +1,12 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
-// User login route
+// GET route for rendering the login form
+router.get('/login', (req, res) => {
+  res.render('login'); // Render the login form
+});
+
+// POST route for handling the login form submission
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({
@@ -9,15 +14,13 @@ router.post('/login', async (req, res) => {
     });
 
     if (!userData) {
-      res.status(400).json({ message: 'Incorrect username or password, please try again' });
-      return;
+      return res.status(400).json({ message: 'Incorrect username or password, please try again' });
     }
 
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect username or password, please try again' });
-      return;
+      return res.status(400).json({ message: 'Incorrect username or password, please try again' });
     }
 
     req.session.save(() => {
@@ -34,4 +37,5 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
 
