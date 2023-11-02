@@ -2,7 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const sequelize = require('./config/connection');
-const router = require('./controllers/home-routes');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -17,7 +16,6 @@ app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(router);
 
 app.use(
   session({
@@ -33,6 +31,7 @@ app.use(require('./controllers/api/user-routes'));
 app.use(require('./controllers/api/post-routes'));
 app.use(require('./controllers/api/login-routes'));
 app.use(require('./controllers/api/logout-routes'));
+app.use(require('./controllers/api/dashboard-routes'));
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Server is now running on http://localhost:${PORT}`));
