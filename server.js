@@ -27,7 +27,7 @@ app.use(
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-
+app.use(express.static('public'));
 app.use(homeRoutes); // Use the home-routes from the controllers directory
 
 // Import and use the user-routes and post-routes from the api directory inside the controllers directory
