@@ -1,7 +1,14 @@
 const express = require('express');
 const session = require('express-session');
+const exphbs = require('express-handlebars');
 const homeRoutes = require('./controllers/home-routes');
 const sequelize = require('./config/connection');
+
+const hbs = exphbs.create({
+  defaultLayout: 'main',
+  layoutsDir: __dirname + '/views/layouts',
+  partialsDir: __dirname + '/views/partials',
+});
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,14 +25,21 @@ app.use(
   })
 );
 
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
 app.use(homeRoutes); // Use the home-routes from the controllers directory
 
 // Import and use the user-routes and post-routes from the api directory inside the controllers directory
 const userRoutes = require('./controllers/api/user-routes');
 const postRoutes = require('./controllers/api/post-routes');
+const loginRoutes = require('./controllers/api/login-routes');
+const logoutRoutes = require('./controllers/api/logout-routes');
 
 app.use(userRoutes); // Use the user-routes from the api directory
 app.use(postRoutes); // Use the post-routes from the api directory
+app.use(loginRoutes); // Use the login-routes from the api directory
+app.use(logoutRoutes); // Use the logout-routes from the api directory
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Server is now running on http://localhost:${PORT}`));
