@@ -27,6 +27,7 @@ router.post('/login', async (req, res) => {
       where: { username: req.body.username },
     });
 
+    console.log('login test', userData);
     if (!userData) {
       res.status(400).json({ message: 'Incorrect username or password, please try again' });
       return;
@@ -35,6 +36,7 @@ router.post('/login', async (req, res) => {
     // Check the user's password with bcrypt
     const validPassword = await bcrypt.compare(req.body.password, userData.password);
 
+    console.log('login test', validPassword);
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect username or password, please try again' });
       return;
