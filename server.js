@@ -32,6 +32,7 @@ app.use(require('./controllers/api/post-routes'));
 app.use(require('./controllers/api/login-routes'));
 app.use(require('./controllers/api/logout-routes'));
 app.use(require('./controllers/api/dashboard-routes'));
+app.use(require('./controllers/api/signup-routes'));
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Server is now running on http://localhost:${PORT}`));
