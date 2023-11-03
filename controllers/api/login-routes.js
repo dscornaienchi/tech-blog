@@ -1,12 +1,10 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
-// GET route for rendering the login form
 router.get('/login', (req, res) => {
-  res.render('login'); // Render the login form
+  res.render('login', { errorMessage: req.session.errorMessage });
 });
 
-// POST route for handling the login form submission
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({
@@ -14,13 +12,15 @@ router.post('/login', async (req, res) => {
     });
 
     if (!userData) {
-      return res.status(400).json({ message: 'Incorrect username or password, please try again' });
+      req.session.errorMessage = 'Incorrect username or password, please try again';
+      return res.redirect('/login');
     }
 
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
-      return res.status(400).json({ message: 'Incorrect username or password, please try again' });
+      req.session.errorMessage = 'Incorrect username or password, please try again';
+      return res.redirect('/login');
     }
 
     req.session.save(() => {
@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
       req.session.username = userData.username;
       req.session.logged_in = true;
 
-      res.json({ user: userData, message: 'You are now logged in!' });
+      res.redirect('/dashboard');
     });
   } catch (err) {
     console.log(err);
@@ -37,5 +37,11 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+
+
 
 
