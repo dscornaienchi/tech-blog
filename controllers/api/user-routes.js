@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
+const bcrypt = require('bcrypt'); // Import the bcrypt library
 
 // User registration route
 router.post('/register', async (req, res) => {
@@ -31,7 +32,8 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await userData.checkPassword(req.body.password);
+    // Check the user's password with bcrypt
+    const validPassword = await bcrypt.compare(req.body.password, userData.password);
 
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect username or password, please try again' });
@@ -63,4 +65,5 @@ router.post('/logout', (req, res) => {
 });
 
 module.exports = router;
+
 
