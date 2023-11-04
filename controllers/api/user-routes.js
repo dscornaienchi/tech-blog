@@ -29,8 +29,7 @@ router.post('/login', async (req, res) => {
 
     console.log('login test', userData);
     if (!userData) {
-      res.status(400).json({ message: 'Incorrect username or password, please try again' });
-      return;
+      return res.redirect('/'); // Redirect back to the home page 
     }
 
     // Check the user's password with bcrypt
@@ -38,16 +37,14 @@ router.post('/login', async (req, res) => {
 
     console.log('login test', validPassword);
     if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect username or password, please try again' });
-      return;
+      return res.redirect('/'); // Redirect back to the home page
     }
 
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.username = userData.username;
       req.session.logged_in = true;
-
-      res.json({ user: userData, message: 'You are now logged in!' });
+      return res.redirect('/'); // Redirect to the home page
     });
   } catch (err) {
     console.log(err);

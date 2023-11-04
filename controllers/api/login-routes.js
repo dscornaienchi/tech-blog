@@ -12,24 +12,20 @@ router.post('/login', async (req, res) => {
     });
 
     if (!userData) {
-      req.session.errorMessage = 'Incorrect username or password, please try again';
-      return res.redirect('/login');
+      return res.redirect('/'); // Redirect back to the login page
     }
 
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
-      req.session.errorMessage = 'Incorrect username or password, please try again';
-      return res.redirect('/login');
+      return res.redirect('/'); // Redirect back to the login page
     }
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.username = userData.username;
-      req.session.logged_in = true;
+    req.session.user_id = userData.id;
+    req.session.username = userData.username;
+    req.session.logged_in = true;
 
-      res.redirect('/dashboard');
-    });
+    res.redirect('/'); // Redirect to the homepage or any other desired page
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -37,6 +33,8 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
+
 
 
 
