@@ -40,4 +40,46 @@ document.getElementById('comment-form').addEventListener('submit', async (event)
       }
     }
   });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    const toggleButton = document.getElementById('toggle-button');
+    const logoutButton = document.getElementById('logout-button');
+  
+    let isLoginForm = true;
+  
+    toggleButton.addEventListener('click', function () {
+      isLoginForm = !isLoginForm;
+  
+      if (isLoginForm) {
+        loginForm.querySelector('h1').textContent = 'Login';
+        loginForm.querySelector('button').textContent = 'Login';
+        logoutButton.textContent = 'Logout';
+      } else {
+        loginForm.querySelector('h1').textContent = 'Sign Up';
+        loginForm.querySelector('button').textContent = 'Sign Up';
+        logoutButton.textContent = 'Login';
+      }
+    });
+  
+    // Handle the click event on the "Logout" button
+    logoutButton.addEventListener('click', async (event) => {
+      event.preventDefault();
+      
+      const response = await fetch('/logout', {
+        method: 'POST',
+      });
+  
+      if (response.ok) {
+        // Redirect to the homepage after logging out
+        window.location.href = '/';
+      } else {
+        alert('Failed to log out');
+      }
+    });
+  });
+  
+  
+  
+  
   

@@ -22,7 +22,7 @@ router.post('/signup', async (req, res) => {
       req.session.username = userData.username;
       req.session.logged_in = true;
 
-      res.json({ user: userData, message: 'You are now registered and logged in!' });
+      return res.redirect('/'); // Redirect to the homepage or any other desired page});
     });
   } catch (err) {
     console.log(err);
