@@ -1,7 +1,7 @@
 # tech-blog
 
 ## Description
-The code included in this repository is used to run a CMS 
+The code included in this repository is used to run a tech blog that meets the following critera: 
 * When the user visits the site for the first time, they are presented with the homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
 * When the user clicks on the homepage option, they are taken to the homepage
 * When the user clicks on any other links in the navigation, they are prompted to either sign up or sign in
