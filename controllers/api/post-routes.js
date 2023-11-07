@@ -24,22 +24,14 @@ router.get('/update/:id', async (req, res) => {
   }
 });
 
-// PUT route for updating a post
+// route for updating a post
 router.put('/edit/:id', async (req, res) => {
+  console.log("hello world")
+  console.log(req.params)
   try {
+    console.log(req.session.user_id)
     if (!req.session.user_id) {
       return res.status(401).json({ message: 'Please log in to update a post' });
-    }
-
-    const postId = req.params.id;
-
-    const post = await Post.findByPk(postId);
-    if (!post) {
-      return res.status(404).json({ message: 'No post found with this id' });
-    }
-
-    if (post.user_id !== req.session.user_id) {
-      return res.status(403).json({ message: "You don't have permission to edit this post" });
     }
 
     const updatedPost = await Post.update(
@@ -49,16 +41,16 @@ router.put('/edit/:id', async (req, res) => {
       },
       {
         where: {
-          id: postId,
+          id: req.params.id,
         },
       }
     );
-
+      console.log(updatedPost)
     if (updatedPost[0] === 0) {
       return res.status(404).json({ message: 'No post found with this id' });
     }
-
-    res.redirect('/dashboard');
+    res.status(200).json(updatedPost);
+    //res.redirect('/dashboard');
   } catch (err) {
     console.error(err);
     res.status(500).json(err);

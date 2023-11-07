@@ -7,8 +7,7 @@
       <p>{{content}}</p>
       <p>Author: {{user.username}}</p>
       <p>Date: {{createdAt}}</p>
-      <button class="btn btn-danger delete-post" data-id="{{id}}" method="DELETE" action="/delete/{{id}}">Delete Post</button>
-      <button class="btn btn-primary update-post" data-id="{{id}}" method="GET" action="/update/{{id}}">Update Post</button>
+      <a class="btn btn-primary update-post" data-id="{{id}}" href="/update/{{id}}">Update Post</a>
     </div>
     {{/each}}
   </ul>
