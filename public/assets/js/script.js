@@ -57,8 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Response:', response); // Add this line
   
       if (response.ok) {
-        // Refresh the dashboard after creating a new post
-        document.location.reload();
+        window.location.href = '/dashboard'; // Redirect to the dashboard page
       } else {
         alert('Failed to create a new post');
       }

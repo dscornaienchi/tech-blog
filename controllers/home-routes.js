@@ -41,15 +41,6 @@ router.get('/post/:id', async (req, res) => {
   }
 });
 
-// Access the create post page (requires authentication)
-router.get('/create', (req, res) => {
-  if (req.session.logged_in) {
-    res.render('create-post', { user: req.session.user_id });
-  } else {
-    res.redirect('/login');
-  }
-});
-
 // Create a new post
 router.post('/create', async (req, res) => {
   try {
@@ -64,7 +55,7 @@ router.post('/create', async (req, res) => {
       user_id: req.session.user_id,
     });
 
-    res.status(200).json(newPost);
+    res.redirect('/dashboard');
   } catch (err) {
     console.error(err);
     res.status(500).json(err);

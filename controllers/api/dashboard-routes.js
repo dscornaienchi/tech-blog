@@ -24,6 +24,9 @@ router.get('/dashboard', withAuth, async (req, res) => {
     const posts = postData.map((post) => post.get({ plain: true }));
 
     // Render the dashboard, passing the user's posts
+    console.log("DASHBOARDPOSTS", posts);
+    console.log("DASHBOARDUSER", req.session.user_id);
+    //const user = await User.findByPk()
     res.render('dashboard', { posts, user: req.session.user_id });
   } catch (err) {
     console.log(err);

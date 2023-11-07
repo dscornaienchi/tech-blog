@@ -1,30 +1,6 @@
 const router = require('express').Router();
 const { Post } = require('../../models');
 
-// POST route for creating a new post
-router.post('/create', async (req, res) => {
-  try {
-    if (!req.session.user_id) {
-      return res.status(401).json({ message: 'Please log in to create a post' });
-    }
-
-    const newPost = await Post.create({
-      title: req.body.title,
-      content: req.body.content,
-      user_id: req.session.user_id,
-    });
-
-    if (newPost) {
-      res.status(200).json(newPost);
-    } else {
-      res.status(500).json({ message: 'Failed to create a post' });
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-});
-
 // PUT route for updating a post
 router.put('/edit/:id', async (req, res) => {
   try {
