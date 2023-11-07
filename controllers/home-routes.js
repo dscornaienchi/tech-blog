@@ -20,27 +20,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// View a single post
-router.get('/post/:id', async (req, res) => {
-  try {
-    const postData = await Post.findByPk(req.params.id, {
-      include: [{ model: User }],
-    });
-
-    if (!postData) {
-      res.status(404).json({ message: 'No post found with this id' });
-      return;
-    }
-
-    const post = postData.get({ plain: true });
-
-    res.render('post', { post, user: req.session.user_id });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-});
-
 // Create a new post
 router.post('/create', async (req, res) => {
   try {
@@ -62,87 +41,53 @@ router.post('/create', async (req, res) => {
   }
 });
 
-
-// Access the update post page (requires authentication)
-router.get('/update/:id', async (req, res) => {
-  if (!req.session.logged_in) {
-    res.redirect('/login');
-  } else {
-    try {
-      const postData = await Post.findByPk(req.params.id);
-
-      if (!postData) {
-        res.status(404).json({ message: 'No post found with this id' });
-        return;
-      }
-
-      const post = postData.get({ plain: true });
-
-      res.render('update-post', { post, user: req.session.user_id });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json(err);
-    }
-  }
-});
-
-// Update a post (requires authentication)
-router.put('/update/:id', async (req, res) => {
+// GET route for rendering the comment page
+router.get('/comment/:postId', withAuth, async (req, res) => {
   try {
-    if (!req.session.logged_in) {
-      res.status(401).json({ message: 'Please log in to update a post' });
-      return;
-    }
-
-    const updatedPost = await Post.update(
-      {
-        title: req.body.title,
-        content: req.body.content,
-      },
-      {
-        where: {
-          id: req.params.id,
-        },
-      }
-    );
-
-    if (updatedPost[0] === 0) {
-      res.status(404).json({ message: 'No post found with this id' });
-      return;
-    }
-
-    res.redirect('/dashboard');
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-});
-
-// Delete a post (requires authentication)
-router.delete('/delete/:id', async (req, res) => {
-  try {
-    if (!req.session.logged_in) {
-      res.status(401).json({ message: 'Please log in to delete a post' });
-      return;
-    }
-
-    const deletedPost = await Post.destroy({
-      where: {
-        id: req.params.id,
-      },
+    // Fetch the post and its associated comments
+    const postData = await Post.findByPk(req.params.postId, {
+      include: [{ model: Comment, include: User }],
     });
 
-    if (!deletedPost) {
+    if (!postData) {
       res.status(404).json({ message: 'No post found with this id' });
       return;
     }
 
-    res.redirect('/dashboard');
+    const post = postData.get({ plain: true });
+
+    res.render('comment', { post, user: req.session.user_id });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
   }
 });
+
+// POST route for creating a comment
+router.post('/comment/create', withAuth, async (req, res) => {
+  try {
+    const { content, postId } = req.body;
+
+    // Check if content is not empty
+    if (!content) {
+      res.status(400).json({ message: 'Comment content is required' });
+      return;
+    }
+
+    // Create a new comment
+    const newComment = await Comment.create({
+      content,
+      user_id: req.session.user_id,
+      post_id: postId, // Assuming you have a postId parameter
+    });
+
+    res.status(200).json({ message: 'Comment created successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+});
+
 
 module.exports = router;
 

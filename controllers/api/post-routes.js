@@ -1,6 +1,29 @@
 const router = require('express').Router();
 const { Post } = require('../../models');
 
+// Access the update post page 
+router.get('/update/:id', async (req, res) => {
+  if (!req.session.logged_in) {
+    res.redirect('/login');
+  } else {
+    try {
+      const postData = await Post.findByPk(req.params.id);
+
+      if (!postData) {
+        res.status(404).json({ message: 'No post found with this id' });
+        return;
+      }
+
+      const post = postData.get({ plain: true });
+
+      res.render('update-post', { post, user: req.session.user_id });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json(err);
+    }
+  }
+});
+
 // PUT route for updating a post
 router.put('/edit/:id', async (req, res) => {
   try {
