@@ -42,7 +42,7 @@ router.post('/create', async (req, res) => {
 });
 
 // GET route for rendering the comment page
-router.get('/comment/:postId', withAuth, async (req, res) => {
+router.get('/comment/:postId', async (req, res) => {
   try {
     // Fetch the post and its associated comments
     const postData = await Post.findByPk(req.params.postId, {
@@ -64,7 +64,7 @@ router.get('/comment/:postId', withAuth, async (req, res) => {
 });
 
 // POST route for creating a comment
-router.post('/comment/create', withAuth, async (req, res) => {
+router.post('/comment/create', async (req, res) => {
   try {
     const { content, postId } = req.body;
 
