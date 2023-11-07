@@ -12,7 +12,11 @@
     <h3>Comments</h3>
     <ul>
       {{#each comments}}
-        <li>{{content}}</li>
+        <li>
+          {{content}}
+          <p>Author: {{user.username}}</p>
+          <p>Date: {{createdAt}}</p>
+        </li>
       {{/each}}
     </ul>
     {{/if}}
@@ -20,4 +24,5 @@
   </div>
 </div>
 {{/each}}
+
 
