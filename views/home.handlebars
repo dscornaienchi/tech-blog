@@ -6,6 +6,18 @@
     <p>{{content}}</p>
     <p>Author: {{user.username}}</p>
     <p>Date: {{createdAt}}</p>
+
+    <!-- Check if comments exist for the post -->
+    {{#if comments.length}}
+    <h3>Comments</h3>
+    <ul>
+      {{#each comments}}
+        <li>{{content}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
+
   </div>
 </div>
 {{/each}}
+

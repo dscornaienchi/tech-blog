@@ -81,7 +81,7 @@ router.post('/comment/create', withAuth, async (req, res) => {
       post_id: postId, // Assuming you have a postId parameter
     });
 
-    res.status(200).json({ message: 'Comment created successfully' });
+    res.redirect('/');
   } catch (err) {
     console.error(err);
     res.status(500).json(err);

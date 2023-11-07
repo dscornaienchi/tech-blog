@@ -58,7 +58,7 @@ router.put('/edit/:id', async (req, res) => {
       return res.status(404).json({ message: 'No post found with this id' });
     }
 
-    res.status(200).json({ message: 'Post updated successfully' });
+    res.redirect('/dashboard');
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
@@ -90,7 +90,7 @@ router.delete('/delete/:id', async (req, res) => {
     });
 
     if (deletedPost) {
-      res.status(200).json({ message: 'Post deleted successfully' });
+      res.redirect('/dashboard');
     } else {
       res.status(500).json({ message: 'Failed to delete the post' });
     }
