@@ -1,14 +1,18 @@
 {{#if user}}
-<ul>
-{{#each posts}}
-  <div class="post-card">
-    <h2>{{title}}</h2>
-    <p>{{content}}</p>
-    <p>Author: {{user.username}}</p>
-    <p>Date: {{createdAt}}</p>
-  </div>
-{{/each}}
-</ul>
+<div class="container">
+  <ul>
+    {{#each posts}}
+    <div class="post-card">
+      <h2>{{title}}</h2>
+      <p>{{content}}</p>
+      <p>Author: {{user.username}}</p>
+      <p>Date: {{createdAt}}</p>
+      <button class="btn btn-danger delete-post" data-id="{{id}}" method="DELETE" action="/delete/{{id}}">Delete Post</button>
+      <button class="btn btn-primary update-post" data-id="{{id}}" method="GET" action="/edit/{{id}}">Update Post</button>
+    </div>
+    {{/each}}
+  </ul>
+</div>
 
 <h3>Create a New Post</h3>
 <form id="create-post-form" method="POST" action="/create">
@@ -25,5 +29,6 @@
 {{else}}
 <p>Please <a href="/login">log in</a> to view your dashboard.</p>
 {{/if}}
+
 
 

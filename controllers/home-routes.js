@@ -62,6 +62,7 @@ router.post('/create', async (req, res) => {
   }
 });
 
+
 // Access the update post page (requires authentication)
 router.get('/update/:id', async (req, res) => {
   if (!req.session.logged_in) {
@@ -110,7 +111,7 @@ router.put('/update/:id', async (req, res) => {
       return;
     }
 
-    res.status(200).json({ message: 'Post updated successfully' });
+    res.redirect('/dashboard');
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
@@ -136,7 +137,7 @@ router.delete('/delete/:id', async (req, res) => {
       return;
     }
 
-    res.status(200).json({ message: 'Post deleted successfully' });
+    res.redirect('/dashboard');
   } catch (err) {
     console.error(err);
     res.status(500).json(err);

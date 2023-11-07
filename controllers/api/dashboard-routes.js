@@ -34,21 +34,6 @@ router.get('/dashboard', withAuth, async (req, res) => {
   }
 });
 
-// GET route for rendering the edit post page
-router.get('/dashboard/edit/:id', withAuth, async (req, res) => {
-  // Your edit post route code
-});
-
-// PUT route for updating a post
-router.put('/dashboard/edit/:id', withAuth, async (req, res) => {
-  // Your update post route code
-});
-
-// DELETE route for deleting a post
-router.delete('/dashboard/delete/:id', withAuth, async (req, res) => {
-  // Your delete post route code
-});
-
 module.exports = router;
 
 
