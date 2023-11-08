@@ -82,7 +82,6 @@ router.delete('/delete/:id', async (req, res) => {
     });
 
     if (deletedPost) {
-      res.redirect('/dashboard');
     } else {
       res.status(500).json({ message: 'Failed to delete the post' });
     }
