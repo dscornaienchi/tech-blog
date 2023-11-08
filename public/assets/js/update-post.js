@@ -37,7 +37,6 @@ document.getElementById('deletepost').addEventListener('click', async (event) =>
     const confirmDelete = confirm('Are you sure you want to delete this post?');
 
     if (confirmDelete) {
-        const postId = event.target.getAttribute('data-id'); // Assuming you have a data-id attribute on the delete button
 
         const response = await fetch(`/api/delete/${id}`, {
             method: 'DELETE',
@@ -45,7 +44,6 @@ document.getElementById('deletepost').addEventListener('click', async (event) =>
         
         console.log(response);
         if (response.ok) {
-            //document.location.replace('/dashboard'); // Redirect to the dashboard page after deleting the post
             window.location.href = '/dashboard'; // Redirect to the dashboard page after deleting the post
         } else {
             alert('Failed to delete post');

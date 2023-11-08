@@ -2,7 +2,7 @@
 {{#each posts}}
 <div class="container">
   <div class="post-card">
-    <h2>{{title}}</h2>
+    <h2><a href="/comment/{{id}}">{{title}}</a></h2>
     <p>{{content}}</p>
     <p>Author: {{user.username}}</p>
     <p>Date: {{createdAt}}</p>

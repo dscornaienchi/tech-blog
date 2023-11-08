@@ -27,7 +27,7 @@ The deployed application can be found here:
 
 A screenshot of the application is shown here: 
 
-[Website Screenshot](./public/images/INSERT IMAGE HERE)
+![website screenshot](./public/images/iScreen%20Shoter%20-%20Google%20Chrome%20-%20231107203106.jpg)
 
 
 ## Credits

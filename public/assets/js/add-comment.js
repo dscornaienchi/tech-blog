@@ -1,15 +1,18 @@
 
 // Example: Submit a comment
-document.getElementById('comment-form').addEventListener('submit', async (event) => {
+document.getElementById('create-comment-form').addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const content = document.querySelector('#content').value;
-  const post_id = window.location.href.split('/post/')[1];
+  const content = document.querySelector('#comment-content').value;
+
+  // Extract the post ID from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const post_id = urlParams.get('postId'); // Assuming the URL parameter is named 'postId'
 
   if (content) {
-    const response = await fetch(`/api/comments`, {
+    const response = await fetch(`/comment/create`, {
       method: 'POST',
-      body: JSON.stringify({ content, post_id }),
+      body: JSON.stringify({ content, postId: post_id }), // Use postId for consistency
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -20,6 +23,8 @@ document.getElementById('comment-form').addEventListener('submit', async (event)
     }
   }
 });
+
+
 
 
   

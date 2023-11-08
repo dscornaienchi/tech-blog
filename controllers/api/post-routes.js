@@ -58,22 +58,9 @@ router.put('/edit/:id', async (req, res) => {
 });
 
 // DELETE route for deleting a post
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/api/delete/:id', async (req, res) => {
   try {
-    if (!req.session.user_id) {
-      return res.status(401).json({ message: 'Please log in to delete a post' });
-    }
-
     const postId = req.params.id;
-
-    const post = await Post.findByPk(postId);
-    if (!post) {
-      return res.status(404).json({ message: 'No post found with this id' });
-    }
-
-    if (post.user_id !== req.session.user_id) {
-      return res.status(403).json({ message: "You don't have permission to delete this post" });
-    }
 
     const deletedPost = await Post.destroy({
       where: {
@@ -82,14 +69,16 @@ router.delete('/delete/:id', async (req, res) => {
     });
 
     if (deletedPost) {
+      res.status(204).end(); // Respond with a 204 No Content status for a successful deletion
     } else {
-      res.status(500).json({ message: 'Failed to delete the post' });
+      res.status(404).json({ message: 'No post found with this id' });
     }
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
   }
 });
+
 
 module.exports = router;
 
