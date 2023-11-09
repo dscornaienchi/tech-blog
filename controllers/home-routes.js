@@ -62,24 +62,25 @@ router.get('/comment/:id', async (req, res) => {
 });
 
 // POST route for creating a comment
-router.post('/comment/create', async (req, res) => {
+router.post(`/comment/:id/create/`, async (req, res) => {
   try {
+    console.log("Server route reached");
     const { content, postId } = req.body;
 
-    // Check if content is not empty
     if (!content) {
       res.status(400).json({ message: 'Comment content is required' });
       return;
     }
-
+    
+    console.log("content and postId:", content, postId);
     // Create a new comment
     const newComment = await Comment.create({
-      content,
+      content: req.body.content,
       user_id: req.session.user_id,
       post_id: postId, // Assuming you have a postId parameter
     });
 
-    res.redirect('/');
+    console.log("comment created successfully")
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
