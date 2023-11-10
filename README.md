@@ -23,7 +23,7 @@ The code included in this repository is used to run a tech blog that meets the f
 
 The Github repository can be found here: https://github.com/dscornaienchi/tech-blog
 
-The deployed application can be found here:
+The deployed application can be found here:https://lit-stream-51238-0d97cad8c8f4.herokuapp.com/
 
 A screenshot of the application is shown here: 
 
