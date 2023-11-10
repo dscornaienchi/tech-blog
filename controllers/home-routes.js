@@ -5,7 +5,7 @@ const { User, Post, Comment } = require('../models');
 router.get('/', async (req, res) => {
   try {
     const postData = await Post.findAll({
-      include: [{ model: User }],
+      include: [{ model: User }, { model: Comment, include: User}],
     });
 
     const posts = postData.map((post) => post.get({ plain: true }));
@@ -80,6 +80,7 @@ router.post(`/comment/:id/create/`, async (req, res) => {
       post_id: postId, // Assuming you have a postId parameter
     });
 
+    res.redirect('/');
     console.log("comment created successfully")
   } catch (err) {
     console.error(err);
